@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import asyncHi  from './test'
+import asyncHi, {cbHi}  from './test'
 
 function App() {
 
@@ -10,11 +10,12 @@ function App() {
 
   useEffect( () => {
     console.log('I am the single one and only asyn call')
-    asyncHi()
+    asyncHi( res => {} )
     .then( res => {
       setResult(res)
       setLoaded(true)
     }) 
+    cbHi( res => console.log(res) )
   },[reload])
 
   useEffect(()=>{

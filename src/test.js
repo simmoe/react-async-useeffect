@@ -9,3 +9,8 @@ export default async function (){
 async function init(p){
     return p
 }
+
+export async function cbHi(cb){
+    let res = await fetch('https://dog.ceo/api/breeds/image/random')
+    cb(res)
+}
