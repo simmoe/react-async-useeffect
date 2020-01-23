@@ -14,3 +14,13 @@ export async function cbHi(cb){
     let res = await fetch('https://dog.ceo/api/breeds/image/random')
     cb(res)
 }
+
+export const obj = {
+    name: 'simon',
+    func: () => {console.log('moe')},
+    aFunc: async function(cb) {
+        let res = await fetch('https://dog.ceo/api/breeds/image/random')
+        cb(res)    
+    }
+
+}
