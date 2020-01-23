@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import asyncHi  from './test'
 
 function App() {
+
+  const [loaded, setLoaded] = useState(false)
+  const [result, setResult] = useState()
+  const [reload, setReload] = useState()
+
+  useEffect( () => {
+    console.log('I am the single one and only asyn call')
+    asyncHi()
+    .then( res => {
+      setResult(res)
+      setLoaded(true)
+    }) 
+  },[reload])
+
+  useEffect(()=>{
+    console.log('the second side - i run when result is changed')
+  }, [result])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+    {
+      loaded
+        ?
+        <>
+        <img style={{width:'200px',padding:'20px'}} src={result.message} alt='ff' />
+        <button onClick={()=>setReload(!reload)}>hit render</button>
+        </>
+        :
+        <h2>loading...</h2> 
+    }
+    </>
+  )
 }
 
 export default App;
